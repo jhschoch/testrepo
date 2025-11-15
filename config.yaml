@@ -1,0 +1,87 @@
+# AI Governance Policy Sources Configuration
+
+policy_sources:
+  # European Union AI Act
+  - name: "EU AI Act"
+    url: "https://artificialintelligenceact.eu/"
+    type: "web"
+    enabled: true
+    category: "regulation"
+    region: "EU"
+
+  - name: "EU AI Act Official Portal"
+    url: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+    type: "web"
+    enabled: true
+    category: "regulation"
+    region: "EU"
+
+  # United States
+  - name: "White House AI Executive Orders"
+    url: "https://www.whitehouse.gov/briefing-room/presidential-actions/"
+    type: "web"
+    enabled: true
+    category: "executive_order"
+    region: "US"
+
+  - name: "NIST AI Risk Management Framework"
+    url: "https://www.nist.gov/itl/ai-risk-management-framework"
+    type: "web"
+    enabled: true
+    category: "framework"
+    region: "US"
+
+  # United Kingdom
+  - name: "UK AI Regulation"
+    url: "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach"
+    type: "web"
+    enabled: true
+    category: "regulation"
+    region: "UK"
+
+  # International Organizations
+  - name: "OECD AI Principles"
+    url: "https://www.oecd.org/digital/artificial-intelligence/"
+    type: "web"
+    enabled: true
+    category: "principles"
+    region: "International"
+
+  - name: "UNESCO AI Ethics"
+    url: "https://www.unesco.org/en/artificial-intelligence"
+    type: "web"
+    enabled: true
+    category: "ethics"
+    region: "International"
+
+  # ISO Standards
+  - name: "ISO/IEC AI Standards"
+    url: "https://www.iso.org/committee/6794475.html"
+    type: "web"
+    enabled: true
+    category: "standards"
+    region: "International"
+
+# Monitoring settings
+monitoring:
+  check_interval_hours: 24
+  max_retries: 3
+  timeout_seconds: 30
+
+# Summarization settings
+summarization:
+  provider: "anthropic"  # Options: "anthropic", "openai"
+  model: "claude-3-5-sonnet-20241022"  # or "gpt-4-turbo"
+  max_summary_length: 500
+  temperature: 0.3
+
+# Storage settings
+storage:
+  data_dir: "./data"
+  archive_dir: "./archive"
+
+# Notification settings
+notifications:
+  enabled: true
+  email_enabled: false
+  console_enabled: true
