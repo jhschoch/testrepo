@@ -6,7 +6,13 @@ from datetime import datetime
 from typing import Dict, Optional
 import requests
 from bs4 import BeautifulSoup
-import feedparser
+
+# Optional RSS support
+try:
+    import feedparser
+    FEEDPARSER_AVAILABLE = True
+except ImportError:
+    FEEDPARSER_AVAILABLE = False
 
 
 class PolicyScraper:
@@ -96,6 +102,10 @@ class PolicyScraper:
 
     def _scrape_rss(self, url: str) -> Optional[Dict]:
         """Scrape content from an RSS feed"""
+        if not FEEDPARSER_AVAILABLE:
+            self.logger.warning("RSS support not available (feedparser not installed)")
+            return None
+
         try:
             feed = feedparser.parse(url)
 

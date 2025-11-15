@@ -3,8 +3,21 @@
 import logging
 import os
 from typing import Dict, Optional
-from anthropic import Anthropic
-from openai import OpenAI
+
+# Optional AI provider imports
+try:
+    from anthropic import Anthropic
+    ANTHROPIC_AVAILABLE = True
+except ImportError:
+    ANTHROPIC_AVAILABLE = False
+    Anthropic = None
+
+try:
+    from openai import OpenAI
+    OPENAI_AVAILABLE = True
+except ImportError:
+    OPENAI_AVAILABLE = False
+    OpenAI = None
 
 
 class PolicySummarizer:
@@ -48,12 +61,16 @@ class PolicySummarizer:
         """Initialize the AI client based on provider"""
         try:
             if self.provider == "anthropic":
+                if not ANTHROPIC_AVAILABLE:
+                    raise ValueError("Anthropic library not installed. Install with: pip install anthropic")
                 api_key = os.getenv("ANTHROPIC_API_KEY")
                 if not api_key:
                     raise ValueError("ANTHROPIC_API_KEY not found in environment")
                 self.client = Anthropic(api_key=api_key)
 
             elif self.provider == "openai":
+                if not OPENAI_AVAILABLE:
+                    raise ValueError("OpenAI library not installed. Install with: pip install openai")
                 api_key = os.getenv("OPENAI_API_KEY")
                 if not api_key:
                     raise ValueError("OPENAI_API_KEY not found in environment")
